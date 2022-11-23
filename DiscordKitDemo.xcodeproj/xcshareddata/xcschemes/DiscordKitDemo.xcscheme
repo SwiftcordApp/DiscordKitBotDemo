@@ -54,7 +54,7 @@
       <EnvironmentVariables>
          <EnvironmentVariable
             key = "TOKEN"
-            value = "MTA0NDEwNTEzMTg2OTg4NDQ2Ng.G8AJxa.PoGBOm1mFe3jTuFf2XFIXk7oNMTQW4gXIp3LiI"
+            value = "$(TOKEN)"
             isEnabled = "YES">
          </EnvironmentVariable>
       </EnvironmentVariables>

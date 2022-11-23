@@ -27,6 +27,8 @@
 /* Begin PBXFileReference section */
 		DA6AE6D9292A697F00B13F3F /* DiscordKitDemo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = DiscordKitDemo; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA6AE6DC292A697F00B13F3F /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		DA6AE6F0292DE2E700B13F3F /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		DA6AE6F1292DE3E200B13F3F /* SecretsConfig.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = SecretsConfig.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +47,8 @@
 		DA6AE6D0292A697F00B13F3F = {
 			isa = PBXGroup;
 			children = (
+				DA6AE6F1292DE3E200B13F3F /* SecretsConfig.xcconfig */,
+				DA6AE6F0292DE2E700B13F3F /* README.md */,
 				DA6AE6DB292A697F00B13F3F /* DiscordKitDemo */,
 				DA6AE6DA292A697F00B13F3F /* Products */,
 				DA6AE6E7292C729800B13F3F /* Frameworks */,
@@ -149,6 +153,7 @@
 /* Begin XCBuildConfiguration section */
 		DA6AE6DE292A697F00B13F3F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DA6AE6F1292DE3E200B13F3F /* SecretsConfig.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -209,6 +214,7 @@
 		};
 		DA6AE6DF292A697F00B13F3F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DA6AE6F1292DE3E200B13F3F /* SecretsConfig.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
