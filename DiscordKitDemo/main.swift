@@ -6,6 +6,17 @@
 //
 
 import Foundation
+import Logging
+import DiscordKitBot
 
-print("Hello, World!")
+let logger = Logger(label: "main")
 
+guard let token = ProcessInfo.processInfo.environment["TOKEN"] else {
+    // We cannot continue without a token present
+    logger.critical("TOKEN was not found in the environment!")
+    exit(1)
+}
+
+let bot = Client(intents: [.unprivileged, .messageContent])
+
+bot.login(token: token)

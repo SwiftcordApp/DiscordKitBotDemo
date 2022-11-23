@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		DA6AE6DD292A697F00B13F3F /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6AE6DC292A697F00B13F3F /* main.swift */; };
+		DA6AE6EC292C76C700B13F3F /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = DA6AE6EB292C76C700B13F3F /* Logging */; };
+		DA6AE6EF292DE26300B13F3F /* DiscordKitBot in Frameworks */ = {isa = PBXBuildFile; productRef = DA6AE6EE292DE26300B13F3F /* DiscordKitBot */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -32,6 +34,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA6AE6EF292DE26300B13F3F /* DiscordKitBot in Frameworks */,
+				DA6AE6EC292C76C700B13F3F /* Logging in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -43,6 +47,7 @@
 			children = (
 				DA6AE6DB292A697F00B13F3F /* DiscordKitDemo */,
 				DA6AE6DA292A697F00B13F3F /* Products */,
+				DA6AE6E7292C729800B13F3F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -62,6 +67,13 @@
 			path = DiscordKitDemo;
 			sourceTree = "<group>";
 		};
+		DA6AE6E7292C729800B13F3F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -78,6 +90,10 @@
 			dependencies = (
 			);
 			name = DiscordKitDemo;
+			packageProductDependencies = (
+				DA6AE6EB292C76C700B13F3F /* Logging */,
+				DA6AE6EE292DE26300B13F3F /* DiscordKitBot */,
+			);
 			productName = DiscordKitDemo;
 			productReference = DA6AE6D9292A697F00B13F3F /* DiscordKitDemo */;
 			productType = "com.apple.product-type.tool";
@@ -106,6 +122,10 @@
 				Base,
 			);
 			mainGroup = DA6AE6D0292A697F00B13F3F;
+			packageReferences = (
+				DA6AE6EA292C76C700B13F3F /* XCRemoteSwiftPackageReference "swift-log" */,
+				DA6AE6ED292DE26300B13F3F /* XCRemoteSwiftPackageReference "DiscordKit" */,
+			);
 			productRefGroup = DA6AE6DA292A697F00B13F3F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -284,6 +304,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		DA6AE6EA292C76C700B13F3F /* XCRemoteSwiftPackageReference "swift-log" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-log.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+		DA6AE6ED292DE26300B13F3F /* XCRemoteSwiftPackageReference "DiscordKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftcordApp/DiscordKit";
+			requirement = {
+				branch = "bot-support";
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		DA6AE6EB292C76C700B13F3F /* Logging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DA6AE6EA292C76C700B13F3F /* XCRemoteSwiftPackageReference "swift-log" */;
+			productName = Logging;
+		};
+		DA6AE6EE292DE26300B13F3F /* DiscordKitBot */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DA6AE6ED292DE26300B13F3F /* XCRemoteSwiftPackageReference "DiscordKit" */;
+			productName = DiscordKitBot;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = DA6AE6D1292A697F00B13F3F /* Project object */;
 }
