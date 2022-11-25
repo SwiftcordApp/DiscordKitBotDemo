@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DA6AE6DD292A697F00B13F3F /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6AE6DC292A697F00B13F3F /* main.swift */; };
-		DA6AE6EC292C76C700B13F3F /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = DA6AE6EB292C76C700B13F3F /* Logging */; };
+		DA6AE6DD292A697F00B13F3F /* Bot.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6AE6DC292A697F00B13F3F /* Bot.swift */; };
 		DA6AE6EF292DE26300B13F3F /* DiscordKitBot in Frameworks */ = {isa = PBXBuildFile; productRef = DA6AE6EE292DE26300B13F3F /* DiscordKitBot */; };
+		DA6AE6F5292E38BE00B13F3F /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = DA6AE6F4292E38BE00B13F3F /* Logging */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -26,7 +26,7 @@
 
 /* Begin PBXFileReference section */
 		DA6AE6D9292A697F00B13F3F /* DiscordKitDemo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = DiscordKitDemo; sourceTree = BUILT_PRODUCTS_DIR; };
-		DA6AE6DC292A697F00B13F3F /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		DA6AE6DC292A697F00B13F3F /* Bot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bot.swift; sourceTree = "<group>"; };
 		DA6AE6F0292DE2E700B13F3F /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		DA6AE6F1292DE3E200B13F3F /* SecretsConfig.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = SecretsConfig.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -36,8 +36,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA6AE6F5292E38BE00B13F3F /* Logging in Frameworks */,
 				DA6AE6EF292DE26300B13F3F /* DiscordKitBot in Frameworks */,
-				DA6AE6EC292C76C700B13F3F /* Logging in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -66,7 +66,7 @@
 		DA6AE6DB292A697F00B13F3F /* DiscordKitDemo */ = {
 			isa = PBXGroup;
 			children = (
-				DA6AE6DC292A697F00B13F3F /* main.swift */,
+				DA6AE6DC292A697F00B13F3F /* Bot.swift */,
 			);
 			path = DiscordKitDemo;
 			sourceTree = "<group>";
@@ -88,6 +88,7 @@
 				DA6AE6D5292A697F00B13F3F /* Sources */,
 				DA6AE6D6292A697F00B13F3F /* Frameworks */,
 				DA6AE6D7292A697F00B13F3F /* CopyFiles */,
+				DA6AE6F6292F7D0800B13F3F /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -95,8 +96,8 @@
 			);
 			name = DiscordKitDemo;
 			packageProductDependencies = (
-				DA6AE6EB292C76C700B13F3F /* Logging */,
 				DA6AE6EE292DE26300B13F3F /* DiscordKitBot */,
+				DA6AE6F4292E38BE00B13F3F /* Logging */,
 			);
 			productName = DiscordKitDemo;
 			productReference = DA6AE6D9292A697F00B13F3F /* DiscordKitDemo */;
@@ -127,8 +128,8 @@
 			);
 			mainGroup = DA6AE6D0292A697F00B13F3F;
 			packageReferences = (
-				DA6AE6EA292C76C700B13F3F /* XCRemoteSwiftPackageReference "swift-log" */,
 				DA6AE6ED292DE26300B13F3F /* XCRemoteSwiftPackageReference "DiscordKit" */,
+				DA6AE6F3292E38BE00B13F3F /* XCRemoteSwiftPackageReference "swift-log" */,
 			);
 			productRefGroup = DA6AE6DA292A697F00B13F3F /* Products */;
 			projectDirPath = "";
@@ -139,12 +140,34 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		DA6AE6F6292F7D0800B13F3F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\n\n#if which swiftlint > /dev/null; then\n  # swiftlint lint --config ../DiscordKit/.swiftlint.yml ../DiscordKit\n  \n#else\n#  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\n#fi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		DA6AE6D5292A697F00B13F3F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DA6AE6DD292A697F00B13F3F /* main.swift in Sources */,
+				DA6AE6DD292A697F00B13F3F /* Bot.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -312,14 +335,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		DA6AE6EA292C76C700B13F3F /* XCRemoteSwiftPackageReference "swift-log" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/apple/swift-log.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
 		DA6AE6ED292DE26300B13F3F /* XCRemoteSwiftPackageReference "DiscordKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SwiftcordApp/DiscordKit";
@@ -328,18 +343,26 @@
 				kind = branch;
 			};
 		};
+		DA6AE6F3292E38BE00B13F3F /* XCRemoteSwiftPackageReference "swift-log" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-log.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		DA6AE6EB292C76C700B13F3F /* Logging */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DA6AE6EA292C76C700B13F3F /* XCRemoteSwiftPackageReference "swift-log" */;
-			productName = Logging;
-		};
 		DA6AE6EE292DE26300B13F3F /* DiscordKitBot */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = DA6AE6ED292DE26300B13F3F /* XCRemoteSwiftPackageReference "DiscordKit" */;
 			productName = DiscordKitBot;
+		};
+		DA6AE6F4292E38BE00B13F3F /* Logging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DA6AE6F3292E38BE00B13F3F /* XCRemoteSwiftPackageReference "swift-log" */;
+			productName = Logging;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
