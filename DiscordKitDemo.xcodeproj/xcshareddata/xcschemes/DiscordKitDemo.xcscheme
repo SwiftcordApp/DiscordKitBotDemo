@@ -53,6 +53,11 @@
       </BuildableProductRunnable>
       <EnvironmentVariables>
          <EnvironmentVariable
+            key = "COMMAND_GUILD_ID"
+            value = "964741354112577557"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+         <EnvironmentVariable
             key = "TOKEN"
             value = "$(TOKEN)"
             isEnabled = "YES">
