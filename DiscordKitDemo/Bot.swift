@@ -47,14 +47,32 @@ public struct Bot {
         try await bot.registerApplicationCommands(guild: ProcessInfo.processInfo.environment["COMMAND_GUILD_ID"]) {
             NewAppCommand("hello", description: "Get a nice hello message") {
                 StringOption("name", description: "Your beautiful name")
+                IntegerOption("age", description: "How old (in years) are you?")
             } handler: { interaction in
-                Task {
-                    if let name: String = interaction.optionValue(of: "name") {
-                        try? await interaction.reply("Hey \(name), nice to meet you!")
-                    } else {
-                        try? await interaction.reply("Hi there! Fill in the name parameter for a personalised greeting!")
+                if let name: String = interaction.optionValue(of: "name") {
+                    if let age: Int = interaction.optionValue(of: "age") {
+                        guard age > 0 else {
+                            try? await interaction.reply("Hmm that doesn't look right, you can't be \(age) years old...")
+                            return
+                        }
+                        let bornAge = Calendar.current.date(byAdding: .init(year: -age), to: Date())
+                        try? await interaction.reply("Hi \(name), you were born <t:\(Int(bornAge!.timeIntervalSince1970)):R>!")
                     }
+                    try? await interaction.reply("Hey \(name), nice to meet you!")
+                } else {
+                    try? await interaction.reply("Hi there! Fill in the name parameter for a personalised greeting!")
                 }
+            }
+
+            NewAppCommand("time", description: "What time is it???") { interaction in
+                try? await interaction.reply("Today's <t:\(Int(Date().timeIntervalSince1970)):F>")
+            }
+
+            NewAppCommand("yes-or-no", description: "Make a choice, and I'll tell you if I approve of it") {
+                BooleanOption("yes", description: "Use True for yes and False for no", required: true)
+            } handler: { interaction in
+                let choice: Bool = interaction.optionValue(of: "yes")!
+                try? await interaction.reply("You said \(choice ? "yes" : "no"), and I \(Bool.random() ? "" : "dis")agree!")
             }
         }
     }
