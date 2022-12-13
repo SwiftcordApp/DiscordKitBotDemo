@@ -48,20 +48,16 @@ public struct Bot {
             // MARK: hello - Basic command which uses a variety of options
             NewAppCommand("hello", description: "Get a nice hello message") {
                 StringOption("name", description: "Your beautiful name")
-                IntegerOption("age", description: "How old (in years) are you?")
+                IntegerOption("age", description: "How old (in years) are you?", min: 1)
             } handler: { interaction in
                 if let name: String = interaction.optionValue(of: "name") {
                     if let age: Int = interaction.optionValue(of: "age") {
-                        guard age > 0 else {
-                            try? await interaction.reply("Hmm that doesn't look right, you can't be \(age) years old...")
-                            return
-                        }
                         let bornAge = Calendar.current.date(byAdding: .init(year: -age), to: Date())
                         try? await interaction.reply("Hi \(name), you were born <t:\(Int(bornAge!.timeIntervalSince1970)):R>!")
                     }
                     try? await interaction.reply("Hey \(name), nice to meet you!")
                 } else {
-                    try? await interaction.reply("Hi there! Fill in the name parameter for a personalised greeting!")
+                    try? await interaction.reply("Hi there! Fill in the name option for a personalised greeting!")
                 }
             }
 
@@ -73,7 +69,7 @@ public struct Bot {
             // MARK: choose - Demonstrates simple sub-commands
             NewAppCommand("choose", description: "Make a choice, and I'll tell you if I approve of it") {
                 SubCommand("yes", description: "How about yes?")
-                SubCommand("no", description: "I think not")
+                SubCommand("no", description: "Maybe not...")
             } handler: { interaction in
                 let choice = interaction.subOption(name: "yes") != nil
                 try? await interaction.reply("You said \(choice ? "yes" : "no"), and I \(Bool.random() ? "" : "dis")agree!")
