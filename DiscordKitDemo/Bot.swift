@@ -68,10 +68,11 @@ public struct Bot {
                 try? await interaction.reply("Today's <t:\(Int(Date().timeIntervalSince1970)):F>")
             }
 
-            NewAppCommand("yes-or-no", description: "Make a choice, and I'll tell you if I approve of it") {
-                BooleanOption("yes", description: "Use True for yes and False for no", required: true)
+            NewAppCommand("choose", description: "Make a choice, and I'll tell you if I approve of it") {
+                SubCommand("yes", description: "How about yes?")
+                SubCommand("no", description: "I think not")
             } handler: { interaction in
-                let choice: Bool = interaction.optionValue(of: "yes")!
+                let choice = interaction.isSubOption(name: "yes") ?? false
                 try? await interaction.reply("You said \(choice ? "yes" : "no"), and I \(Bool.random() ? "" : "dis")agree!")
             }
         }
