@@ -62,11 +62,6 @@
             value = "$(TOKEN)"
             isEnabled = "YES">
          </EnvironmentVariable>
-         <EnvironmentVariable
-            key = "TEST_CHANNEL_ID"
-            value = "1044493748328992811"
-            isEnabled = "YES">
-         </EnvironmentVariable>
       </EnvironmentVariables>
    </LaunchAction>
    <ProfileAction

@@ -82,15 +82,6 @@ public struct Bot {
                 "user.username": "\(bot.user!.username)",
                 "user.discriminator": "\(bot.user!.discriminator)"
             ])
-            if let channelID = ProcessInfo.processInfo.environment["TEST_CHANNEL_ID"] {
-                do {
-                    logger.trace("Attempting to send test message", metadata: ["channel.id": "\(channelID)"])
-                    _ = try await bot.sendMessage("Hello world!", channel: "1044493748328992811")
-                    logger.trace("Sent test message successfully!")
-                } catch {
-                    logger.error("Failed to send test message", metadata: ["error": "\(error.localizedDescription)"])
-                }
-            }
 
             // MARK: Register some slash commands for our bot
             // Commands can **only** be registered _after_ the ready event has
