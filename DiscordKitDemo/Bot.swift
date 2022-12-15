@@ -155,7 +155,10 @@ public struct Bot {
         bot.messageCreate.listen { message in
             if message.content.hasPrefix(Self.MSG_CMD_PREFIX) { // Check if the message has our prefix
                 // Remove the prefix and split the text into individual args
-                let args = message.content.trimmingPrefix(Self.MSG_CMD_PREFIX).components(separatedBy: .whitespaces)
+                let args = message.content
+                    .trimmingPrefix(Self.MSG_CMD_PREFIX)
+                    .components(separatedBy: .whitespaces)
+                    .filter { !$0.isEmpty }
                 // Ensure there's at least one arg, which will be used as the command
                 guard let command = args.first else { return }
                 logger.debug("Received message command", metadata: ["command": "\(command)"])
