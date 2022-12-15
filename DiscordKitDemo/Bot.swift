@@ -119,6 +119,16 @@ public struct Bot {
                     try? await interaction.reply("`\(lhs) ÷ \(rhs) = \(lhs / rhs)`")
                 }
             }
+
+            NewAppCommand("timer", description: "Can we have a timer? \"We already have a timer at home\" The timer at home:") {
+                IntegerOption("duration", description: "The approximate duration of this timer", required: true, min: 1, max: 30)
+            } handler: { interaction in
+                try? await interaction.deferReply() // Call this as soon as possible to defer the response and display a loading state
+
+                let duration: Int = interaction.optionValue(of: "duration")!
+                try? await Task.sleep(for: .seconds(duration))
+                try? await interaction.reply("Your timer for \(duration)s is up! It ended <t:\(Int(Date().timeIntervalSince1970)):R>.")
+            }
         }
     }
 
