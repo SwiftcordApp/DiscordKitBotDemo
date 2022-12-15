@@ -123,16 +123,6 @@ public struct Bot {
     }
 
     public static func main() {
-        // MARK: Get token from environment variables
-        // You can store the bot token in any way you see fit, this example
-        // uses a .xcconfig file to store the token locally. Never add your
-        // bot token to source control (i.e. git)!
-        guard let token = ProcessInfo.processInfo.environment["TOKEN"]?.trimmingCharacters(in: .whitespaces) else {
-            // We cannot continue without a token present
-            logger.critical("TOKEN was not found in the environment!")
-            exit(1)
-        }
-
         // MARK: Register event listeners
         // Instances of a NotificationCenter wrapper are provided as properties
         // of the Client class. These allow less verbose registration of
@@ -178,8 +168,14 @@ public struct Bot {
             }
         }
 
-        // MARK: Finally, log in to the Discord API with our token
-        bot.login(token: token)
+        // MARK: Finally, log in to the Discord API with our bot's token
+        // You can store the bot token in any way you see fit, this example
+        // uses a .xcconfig file to store the token locally. Never add your
+        // bot token to source control (i.e. git)!
+        // In this example, since we've set the DISCORD_TOKEN environment
+        // variable to our bot's token, we can simply call login without any
+        // arguments. It defaults to using the DISCORD_TOKEN env variable.
+        bot.login()
 
         // Run the main RunLoop to prevent the program from exiting
         RunLoop.main.run()
