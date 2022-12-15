@@ -58,7 +58,12 @@
             isEnabled = "YES">
          </EnvironmentVariable>
          <EnvironmentVariable
-            key = "TOKEN"
+            key = "MESSAGE_COMMAND_PREFIX"
+            value = "?"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+         <EnvironmentVariable
+            key = "DISCORD_TOKEN"
             value = "$(TOKEN)"
             isEnabled = "YES">
          </EnvironmentVariable>

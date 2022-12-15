@@ -18,6 +18,12 @@ import DiscordKitBot // Import the DiscordKit module for all the wonders contain
 /// bot to life!
 @main
 public struct Bot {
+    /// The prefix we're using for commands
+    ///
+    /// This reads from the `MESSAGE_COMMAND_PREFIX` environment variable and defaults
+    /// to "?" as the prefix if the variable isn't found.
+    static let MSG_CMD_PREFIX = ProcessInfo.processInfo.environment["MESSAGE_COMMAND_PREFIX"] ?? "?"
+
     /// A simple logger for this bot
     ///
     /// Here we're using `SwiftLog`, but feel free to use any logging module that fits your needs.
@@ -152,9 +158,23 @@ public struct Bot {
                 logger.error("Failed to register interactions", metadata: ["error": "\(error.localizedDescription)"])
             }
         }
+        // MARK: Listen for message create events for text messages
+        // For this to work, you'll have to ensure you've enabled the message
+        // content intent in both the client init call and Discord's developer
+        // portal, or the message content you receive will always be empty.
         bot.messageCreate.listen { message in
-            if message.content.hasPrefix("?test") {
-                _ = try? await bot.sendMessage("Testing a reply!", channel: message.channelID, replyingTo: message.id)
+            if message.content.hasPrefix(Self.MSG_CMD_PREFIX) { // Check if the message has our prefix
+                // Remove the prefix and split the text into individual args
+                let args = message.content.trimmingPrefix(Self.MSG_CMD_PREFIX).components(separatedBy: .whitespaces)
+                // Ensure there's at least one arg, which will be used as the command
+                guard let command = args.first else { return }
+                logger.debug("Received message command", metadata: ["command": "\(command)"])
+                switch command {
+                case "ping":
+                    _ = try? await message.reply("Pong!")
+                default:
+                    _ = try? await message.reply("I don't recognise that command :(")
+                }
             }
         }
 
