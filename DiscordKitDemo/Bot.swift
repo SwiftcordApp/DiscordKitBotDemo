@@ -54,7 +54,7 @@ public struct Bot {
             // MARK: hello - Basic command which uses a variety of options
             NewAppCommand("hello", description: "Get a nice hello message") {
                 StringOption("name", description: "Your beautiful name")
-                IntegerOption("age", description: "How old (in years) are you?", min: 1)
+                IntegerOption("age", description: "How old (in years) are you?").min(1)
             } handler: { interaction in
                 if let name: String = interaction.optionValue(of: "name") {
                     if let age: Int = interaction.optionValue(of: "age") {
@@ -85,20 +85,20 @@ public struct Bot {
             NewAppCommand("calculator", description: "Need help crunching numbers? Just use this command!") {
                 // Sub-commands can be defined like so, and even support nested options!
                 SubCommand("plus", description: "Add two numbers") {
-                    NumberOption("lhs", description: "First number to add", required: true)
-                    NumberOption("rhs", description: "Second number to add", required: true)
+                    NumberOption("lhs", description: "First number to add").required()
+                    NumberOption("rhs", description: "Second number to add").required()
                 }
                 SubCommand("minus", description: "Subtract one number from the other") {
-                    NumberOption("lhs", description: "Number to subtract from", required: true)
-                    NumberOption("rhs", description: "Number to subtract", required: true)
+                    NumberOption("lhs", description: "Number to subtract from").required()
+                    NumberOption("rhs", description: "Number to subtract").required()
                 }
                 SubCommand("times", description: "Multiply the first number with the other") {
-                    NumberOption("lhs", description: "Base value to multiply", required: true)
-                    NumberOption("rhs", description: "Multiplier/Factor to multiply base value by", required: true)
+                    NumberOption("lhs", description: "Base value to multiply").required()
+                    NumberOption("rhs", description: "Multiplier/Factor to multiply base value by").required()
                 }
                 SubCommand("divide", description: "Divide the first number by the second") {
-                    NumberOption("lhs", description: "Quotient (number to divide)", required: true)
-                    NumberOption("rhs", description: "Divisor", required: true)
+                    NumberOption("lhs", description: "Quotient (number to divide)").required()
+                    NumberOption("rhs", description: "Divisor").required()
                 }
             } handler: { interaction in
                 if let opt = interaction.subOption(name: "plus"),
@@ -121,7 +121,10 @@ public struct Bot {
             }
 
             NewAppCommand("timer", description: "Can we have a timer? \"We already have a timer at home\" The timer at home:") {
-                IntegerOption("duration", description: "The approximate duration of this timer", required: true, min: 1, max: 30)
+                IntegerOption("duration", description: "The approximate duration of this timer")
+                    .required()
+                    .min(1)
+                    .max(30)
             } handler: { interaction in
                 try? await interaction.deferReply() // Call this as soon as possible to defer the response and display a loading state
 
