@@ -132,6 +132,54 @@ public struct Bot {
                 try? await Task.sleep(for: .seconds(duration))
                 try? await interaction.reply("Your timer for \(duration)s is up! It ended <t:\(Int(Date().timeIntervalSince1970)):R>.")
             }
+
+            NewAppCommand("embed", description: "Help me make an embed!") {
+                StringOption("title", description: "Title of the embed")
+                StringOption("description", description: "Description of the embed")
+                StringOption("url", description: "URL of the embed (must be a valid URL)")
+                StringOption("fields", description: "Fields of the embed in the format `title1,value1,title2,value2,...`")
+            } handler: { interaction in
+                let title: String? = interaction.optionValue(of: "title")
+                let description: String? = interaction.optionValue(of: "description")
+                let url: String? = interaction.optionValue(of: "url")
+                let rawFields: String? = interaction.optionValue(of: "fields")
+                var fields: [BotEmbed.Field] = []
+
+                func errorReply(_ error: String) async throws {
+                    try await interaction.reply {
+                        BotEmbed()
+                            .title(error)
+                            .color(0xff0000)
+                    }
+                }
+
+                // Ensure at least one of the properties isn't nil
+                guard title != nil || description != nil || rawFields != nil else {
+                    try? await errorReply("At least one of title, description or fields must be set")
+                    return
+                }
+                // Try to decode fields if present
+                if let rawFields {
+                    let pairs = rawFields.components(separatedBy: ",")
+                    guard pairs.count.isMultiple(of: 2) else {
+                        try? await errorReply("Pairs of field title and values are incomplete")
+                        return
+                    }
+                    for i in 0..<pairs.count where i.isMultiple(of: 2) {
+                        fields.append(.init(
+                            pairs[i].trimmingCharacters(in: .whitespaces),
+                            value: pairs[i+1].trimmingCharacters(in: .whitespaces)
+                        ))
+                    }
+                }
+
+                try? await interaction.reply {
+                    BotEmbed(fields: fields.isEmpty ? nil : fields)
+                        .title(title)
+                        .description(description)
+                        .url(url)
+                }
+            }
         }
     }
 
