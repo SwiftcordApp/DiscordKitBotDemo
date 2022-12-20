@@ -53,17 +53,25 @@ public struct Bot {
         try await bot.registerApplicationCommands(guild: ProcessInfo.processInfo.environment["COMMAND_GUILD_ID"]) {
             // MARK: hello - Basic command which uses a variety of options
             NewAppCommand("hello", description: "Get a nice hello message") {
+                BooleanOption("ephemeral", description: "If my reply should only be visible to you").required()
                 StringOption("name", description: "Your beautiful name")
                 IntegerOption("age", description: "How old (in years) are you?").min(1)
             } handler: { interaction in
+                let ephemeral: Bool = interaction.optionValue(of: "ephemeral")!
                 if let name: String = interaction.optionValue(of: "name") {
                     if let age: Int = interaction.optionValue(of: "age") {
                         let bornAge = Calendar.current.date(byAdding: .init(year: -age), to: Date())
-                        try? await interaction.reply("Hi \(name), you were born <t:\(Int(bornAge!.timeIntervalSince1970)):R>!")
+                        try? await interaction.reply(
+                            "Hi \(name), you were born <t:\(Int(bornAge!.timeIntervalSince1970)):R>!",
+                            ephemeral: ephemeral
+                        )
                     }
-                    try? await interaction.reply("Hey \(name), nice to meet you!")
+                    try? await interaction.reply("Hey \(name), nice to meet you!", ephemeral: ephemeral)
                 } else {
-                    try? await interaction.reply("Hi there! Fill in the name option for a personalised greeting!")
+                    try? await interaction.reply(
+                        "Hi there! Fill in the name option for a personalised greeting!",
+                        ephemeral: ephemeral
+                    )
                 }
             }
 
@@ -155,7 +163,11 @@ public struct Bot {
 
                 // Ensure at least one of the properties isn't nil
                 guard title != nil || description != nil || rawFields != nil else {
-                    try? await errorReply("At least one of title, description or fields must be set")
+                    try? await interaction.reply {
+                        BotEmbed {
+                            BotEmbed.Field()
+                        }
+                    }
                     return
                 }
                 // Try to decode fields if present
